@@ -1,0 +1,228 @@
+{
+	"info": {
+		"_postman_id": "31beccea-48ff-404f-8a98-ee86e7f79636",
+		"name": "Onboarding Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18225965"
+	},
+	"item": [
+		{
+			"name": "Batch Import Customers",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customers\": [\n        {\n            \"customer_name\": \"string\",\n            \"customer_id\": \"string\",\n            \"email\": \"user@example.com\",\n            \"payment_provider\": \"stripe\",\n            \"payment_provider_id\": \"string\",\n            \"properties\": {\n                \"property1\": null,\n                \"property2\": null\n            }\n        }\n    ],\n    \"behavior_on_existing\": \"merge\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uselotus.io/api/batch_create_customers/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uselotus",
+						"io"
+					],
+					"path": [
+						"api",
+						"batch_create_customers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Track Event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"batch\": [\n        {\n            \"event_name\": \"test_event\",\n            \"properties\": {\n                \"property1\": 23,\n                \"property2\": 23\n            },\n            \"time_created\": \"2019-08-24T14:15:22Z\",\n            \"idempotency_id\": \"test123\",\n            \"customer_id\": \"string\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uselotus.io/api/track/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uselotus",
+						"io"
+					],
+					"path": [
+						"api",
+						"track",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer Access",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.uselotus.io/api/customer_access/?customer_id=&event_name=test_event&event_limit_type=total",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uselotus",
+						"io"
+					],
+					"path": [
+						"api",
+						"customer_access",
+						""
+					],
+					"query": [
+						{
+							"key": "customer_id",
+							"value": ""
+						},
+						{
+							"key": "event_name",
+							"value": "test_event"
+						},
+						{
+							"key": "event_limit_type",
+							"value": "total"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Draft Invoice",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.uselotus.io/api/draft_invoice/?customer_id",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uselotus",
+						"io"
+					],
+					"path": [
+						"api",
+						"draft_invoice",
+						""
+					],
+					"query": [
+						{
+							"key": "customer_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{KEY}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-API-KEY",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_KEY",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
