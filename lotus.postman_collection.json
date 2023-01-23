@@ -1,0 +1,1579 @@
+{
+	"info": {
+		"_postman_id": "f895719c-ab58-4f3d-ba21-5c918691697e",
+		"name": "Prod Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18225965"
+	},
+	"item": [
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Track Event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Body contains success\", function(){",
+									"    pm.response.to.have.jsonBody(\"success\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"batch\": [\n        {\n            \"customer_id\": \"cust_ddfae050b12c4c3a9e092917299296c4\",\n            \"event_name\": \"api_post\",\n            \"idempotency_id\": \"{{$isoTimestamp}}\",\n            \"properties\": {\n                \"shard_id\": \"2\",\n                \"shard_type\": \"professional\",\n                \"change\": 5\n            },\n            \"time_created\": \"{{$isoTimestamp}}\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/track/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"track",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "List Customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "customer_id",
+									"value": "customer4id",
+									"description": "required",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "customer4",
+									"description": "required",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "email@gmail.com",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/customers/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve a Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body contains correct items\", function(){",
+									"    pm.response.to.have.jsonBody(\"customer_name\");",
+									"    pm.response.to.have.jsonBody(\"customer_id\");",
+									"    pm.response.to.have.jsonBody(\"email\");",
+									"    pm.response.to.have.jsonBody(\"payment_provider\");",
+									"    pm.response.to.have.jsonBody(\"has_payment_method\");",
+									"    pm.response.to.have.jsonBody(\"default_currency\");",
+									"    pm.response.to.have.jsonBody(\"invoices\");",
+									"    pm.response.to.have.jsonBody(\"total_amount_due\");",
+									"    pm.response.to.have.jsonBody(\"integrations\");",
+									"    pm.response.to.have.jsonBody(\"subscriptions\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{URL}}/api/customers/{{CUSTOMER_ID}}/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"{{CUSTOMER_ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Body contains correct items\", function(){",
+									"    pm.response.to.have.jsonBody(\"customer_name\");",
+									"    pm.response.to.have.jsonBody(\"customer_id\");",
+									"    pm.response.to.have.jsonBody(\"email\");",
+									"    pm.response.to.have.jsonBody(\"payment_provider\");",
+									"    pm.response.to.have.jsonBody(\"has_payment_method\");",
+									"    pm.response.to.have.jsonBody(\"default_currency\");",
+									"    pm.response.to.have.jsonBody(\"invoices\");",
+									"    pm.response.to.have.jsonBody(\"total_amount_due\");",
+									"    pm.response.to.have.jsonBody(\"integrations\");",
+									"    pm.response.to.have.jsonBody(\"subscriptions\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "customer_id",
+									"value": "{{$randomUUID}}",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "customer_name",
+									"value": "{{$randomCity}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{$randomEmail}}",
+									"description": "required",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/customers/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Customer",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "customer_id",
+											"value": "{{$randomUUID}}",
+											"description": "required",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "{{$randomInt}}",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "{{$randomEmail}}",
+											"description": "required",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.uselotus.io/api/customers/",
+									"protocol": "https",
+									"host": [
+										"api",
+										"uselotus",
+										"io"
+									],
+									"path": [
+										"api",
+										"customers",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "gunicorn"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Jan 2023 20:01:58 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "174"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"customer_name\": null,\n    \"customer_id\": \"a7981262-96a4-4f99-8bd3-99f762a2b23f\",\n    \"email\": \"Leola61@gmail.com\",\n    \"payment_provider\": null,\n    \"properties\": {},\n    \"address\": null,\n    \"tax_rate\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Subscription",
+			"item": [
+				{
+					"name": "Create Subscription",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Check Status and Body', () => {",
+									"    if(pm.response.code === 200) {",
+									"        pm.response.to.have.jsonBody(\"fully_billed\");",
+									"        pm.response.to.have.jsonBody(\"billing_plan\");",
+									"        pm.response.to.have.jsonBody(\"customer\");",
+									"        pm.response.to.have.jsonBody(\"subscription_filters\");",
+									"        pm.response.to.have.jsonBody(\"is_new\");",
+									"        pm.response.to.have.jsonBody(\"auto_renew\");",
+									"        pm.response.to.have.jsonBody(\"end_date\");",
+									"        pm.response.to.have.jsonBody(\"start_date\");",
+									"    }",
+									"    if (pm.response.code === 500){",
+									"        pm.expect.fail();",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"type": "text"
+								},
+								{
+									"key": "start_date",
+									"value": "{{$isoTimestamp}}",
+									"type": "text"
+								},
+								{
+									"key": "plan_id",
+									"value": "{{PLAN_ID}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/subscriptions/add/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"add",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Subscription",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Check Status', () => {",
+									"    if(pm.response.code === 200) {",
+									"        pm.test('is an Array', () => pm.expect(pm.response.json()).to.be.an('array').but.not.an('object'))",
+									"",
+									"        var bodyJson = pm.response.json();",
+									"        _.each(bodyJson.Fee, (item)=> {",
+									"            pm.response.to.have.jsonBody(\"fully_billed\");",
+									"            pm.response.to.have.jsonBody(\"billing_plan\");",
+									"            pm.response.to.have.jsonBody(\"customer\");",
+									"            pm.response.to.have.jsonBody(\"subscription_filters\");",
+									"            pm.response.to.have.jsonBody(\"is_new\");",
+									"            pm.response.to.have.jsonBody(\"auto_renew\");",
+									"            pm.response.to.have.jsonBody(\"end_date\");",
+									"            pm.response.to.have.jsonBody(\"start_date\");",
+									"        })",
+									"    }",
+									"    if (pm.response.code === 500){",
+									"        pm.expect.fail();",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "replace_plan_id",
+									"value": "{{PLAN_ID}}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "turn_off_auto_renew",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "invoicing_behavior",
+									"value": "add_to_next_invoice",
+									"type": "text"
+								},
+								{
+									"key": "usage_behavior",
+									"value": "transfer_to_new_subscription",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/subscriptions/update/?customer_id={{CUSTOMER_ID}}&plan_id={{PLAN_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"update",
+								""
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"description": "not required; if not specified, will perform cancellation for all customers, given other filters"
+								},
+								{
+									"key": "plan_id",
+									"value": "{{PLAN_ID}}",
+									"description": "not required; if not specified, will perform cancellation across all plans, given other filters"
+								},
+								{
+									"key": "subscription_filters",
+									"value": "\"[{\\\"property_name\\\": \\\"shard_id\\\",\\\"value\\\": \\\"shard_1234\\\"},{\\\"property_name\\\": \\\"environment\\\",\\\"value\\\": \\\"eu\\\"}]\"",
+									"description": "must be a stringified json of a list of length 2 dictionaries with keys \"property_name\" and \"value\"",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Subscription",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Check Status and Body', () => {",
+									"    if(pm.response.code === 200) {",
+									"        pm.test('is an Array', () => pm.expect(pm.response.json()).to.be.an('array').but.not.an('object'))",
+									"",
+									"        var bodyJson = pm.response.json();",
+									"        _.each(bodyJson.Fee, (item)=> {",
+									"            pm.response.to.have.jsonBody(\"fully_billed\");",
+									"            pm.response.to.have.jsonBody(\"billing_plan\");",
+									"            pm.response.to.have.jsonBody(\"customer\");",
+									"            pm.response.to.have.jsonBody(\"subscription_filters\");",
+									"            pm.response.to.have.jsonBody(\"is_new\");",
+									"            pm.response.to.have.jsonBody(\"auto_renew\");",
+									"            pm.response.to.have.jsonBody(\"end_date\");",
+									"            pm.response.to.have.jsonBody(\"start_date\");",
+									"        })",
+									"    }",
+									"    if (pm.response.code === 500){",
+									"        pm.expect.fail();",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "flat_fee_behavior",
+									"value": "prorate",
+									"description": "must be prorate, refund, or charge_full",
+									"type": "text"
+								},
+								{
+									"key": "bill_usage",
+									"value": "true",
+									"description": "boolean",
+									"type": "text"
+								},
+								{
+									"key": "invoicing_behavior_on_cancel",
+									"value": "invoice_now",
+									"description": "must be invoice_now or add_to_next_invoice",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/subscriptions/cancel/?customer_id={{CUSTOMER_ID}}&plan_id={{PLAN_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"cancel",
+								""
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"description": "not required; if not specified, will perform cancellation for all customers, given other filters"
+								},
+								{
+									"key": "plan_id",
+									"value": "{{PLAN_ID}}",
+									"description": "not required; if not specified, will perform cancellation across all plans, given other filters"
+								},
+								{
+									"key": "subscription_filters",
+									"value": "\"[{\\\"property_name\\\": \\\"shard_id\\\",\\\"value\\\": \\\"shard_1234\\\"},{\\\"property_name\\\": \\\"environment\\\",\\\"value\\\": \\\"eu\\\"}]\"",
+									"description": "must be a stringified json of a list of length 2 dictionaries with keys \"property_name\" and \"value\"",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Subscriptions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('is an Array', () => pm.expect(pm.response.json()).to.be.an('array').but.not.an('object'))",
+									"",
+									"var bodyJson = pm.response.json();",
+									"",
+									"pm.test(\"Body contains correct items\", function(){",
+									"    _.each(bodyJson.Fee, (item)=> {",
+									"        pm.response.to.have.item(\"customer\");",
+									"        pm.response.to.have.item(\"fully_billed\");",
+									"        pm.response.to.have.item(\"billing_plan\");",
+									"        pm.response.to.have.item(\"subscription_filters\");",
+									"        pm.response.to.have.item(\"is_new\");",
+									"        pm.response.to.have.item(\"auto_renew\");",
+									"        pm.response.to.have.item(\"end_date\");",
+									"        pm.response.to.have.item(\"start_date\");",
+									"    })",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/subscriptions/?customer_id={{CUSTOMER_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								""
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Access",
+			"item": [
+				{
+					"name": "[DEPRECATED] Get Customer Metric Access",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test('is an Array', () => pm.expect(pm.response.json()).to.be.an('array').but.not.an('object'))",
+									"",
+									"// var bodyJson = pm.response.json();",
+									"// pm.test(\"Body contains correct items\", function(){",
+									"//     pm.response.to.have.item(\"usage_per_component\");",
+									"//     pm.response.to.have.item(\"subscription_filters\");",
+									"//     pm.response.to.have.item(\"plan_id\");",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/customer_metric_access/?customer_id={{CUSTOMER_ID}}&event_name=api_post",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"customer_metric_access",
+								""
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"description": "required"
+								},
+								{
+									"key": "event_name",
+									"value": "api_post",
+									"description": "required"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Metric Access",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Check Status and Body', () => {",
+									"    if(pm.response.code === 200) {",
+									"        pm.response.to.have.jsonBody(\"customer\");",
+									"        pm.response.to.have.jsonBody(\"access\");",
+									"        pm.response.to.have.jsonBody(\"metric\");",
+									"        pm.response.to.have.jsonBody(\"access_per_subscription\");",
+									"    }",
+									"    if (pm.response.code === 500){",
+									"        pm.expect.fail();",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/metric_access/?customer_id={{CUSTOMER_ID}}&metric_id=metric_add0416f28ee4f749e85cf7b779f0716",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"metric_access",
+								""
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"description": "required"
+								},
+								{
+									"key": "metric_id",
+									"value": "metric_add0416f28ee4f749e85cf7b779f0716"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Feature Access",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Check Status and Body', () => {",
+									"    if(pm.response.code === 200) {",
+									"        pm.response.to.have.jsonBody(\"customer\");",
+									"        pm.response.to.have.jsonBody(\"access\");",
+									"        pm.response.to.have.jsonBody(\"feature\");",
+									"        pm.response.to.have.jsonBody(\"access_per_subscription\");",
+									"    }",
+									"    if (pm.response.code === 500){",
+									"        pm.expect.fail();",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/feature_access/?customer_id={{CUSTOMER_ID}}&feature_id=feature_813a0eefdaef4861b20d88e795eaf2d2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"feature_access",
+								""
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"description": "required"
+								},
+								{
+									"key": "feature_id",
+									"value": "feature_813a0eefdaef4861b20d88e795eaf2d2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get [DEPRECATED] Customer Feature Access",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Body contains correct items\", function(){",
+									"//     pm.response.to.have.jsonBody(\"access\");",
+									"//     pm.response.to.have.jsonBody(\"subscription_filters\");",
+									"//     pm.response.to.have.jsonBody(\"plan_id\");",
+									"//     pm.response.to.have.jsonBody(\"feature_name\");",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/customer_feature_access/?customer_id={{CUSTOMER_ID}}&feature_name=support",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"customer_feature_access",
+								""
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"description": "required"
+								},
+								{
+									"key": "feature_name",
+									"value": "support",
+									"description": "required"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Plans",
+			"item": [
+				{
+					"name": "List Plans",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('is an Array', () => pm.expect(pm.response.json()).to.be.an('array').but.not.an('object'))",
+									"",
+									"var bodyJson = pm.response.json();",
+									"",
+									"pm.test(\"Body contains correct items\", function(){",
+									"    _.each(bodyJson.Fee, (item)=> {",
+									"        pm.response.to.have.item(\"plan_id\");",
+									"        pm.response.to.have.item(\"tags\");",
+									"        pm.response.to.have.item(\"active_subscriptions\");",
+									"        pm.response.to.have.item(\"num_versions\");",
+									"        pm.response.to.have.item(\"display_version\");",
+									"        pm.response.to.have.item(\"target_customer\");",
+									"        pm.response.to.have.item(\"parent_plan\");",
+									"        pm.response.to.have.item(\"external_links\");",
+									"        pm.response.to.have.item(\"status\");",
+									"        pm.response.to.have.item(\"plan_duration\");",
+									"        pm.response.to.have.item(\"plan_name\");",
+									"    })",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/plans/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"plans",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Plan",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body contains correct items\", function(){",
+									"    pm.response.to.have.jsonBody(\"plan_id\");",
+									"    pm.response.to.have.jsonBody(\"tags\");",
+									"    pm.response.to.have.jsonBody(\"active_subscriptions\");",
+									"    pm.response.to.have.jsonBody(\"num_versions\");",
+									"    pm.response.to.have.jsonBody(\"display_version\");",
+									"    pm.response.to.have.jsonBody(\"target_customer\");",
+									"    pm.response.to.have.jsonBody(\"parent_plan\");",
+									"    pm.response.to.have.jsonBody(\"external_links\");",
+									"    pm.response.to.have.jsonBody(\"status\");",
+									"    pm.response.to.have.jsonBody(\"plan_duration\");",
+									"    pm.response.to.have.jsonBody(\"plan_name\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/plans/{{PLAN_ID}}/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"plans",
+								"{{PLAN_ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invoices",
+			"item": [
+				{
+					"name": "List Invoices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('is an Array', () => pm.expect(pm.response.json()).to.be.an('array').but.not.an('object'))",
+									"",
+									"var bodyJson = pm.response.json();",
+									"",
+									"pm.test(\"Body contains correct items\", function(){",
+									"    _.each(bodyJson.Fee, (item)=> {",
+									"        pm.response.to.have.item(\"invoice_pdf\");",
+									"        pm.response.to.have.item(\"invoice_id\");",
+									"        pm.response.to.have.item(\"seller\");",
+									"        pm.response.to.have.item(\"end_date\");",
+									"        pm.response.to.have.item(\"start_date\");",
+									"        pm.response.to.have.item(\"due_date\");",
+									"        pm.response.to.have.item(\"customer\");",
+									"        pm.response.to.have.item(\"line_items\");",
+									"        pm.response.to.have.item(\"external_payment_obj_type\");",
+									"        pm.response.to.have.item(\"external_payment_obj_id\");",
+									"        pm.response.to.have.item(\"payment_status\");",
+									"        pm.response.to.have.item(\"issue_date\");",
+									"        pm.response.to.have.item(\"currency\");",
+									"        pm.response.to.have.item(\"cost_due\");",
+									"        pm.response.to.have.item(\"invoice_number\");",
+									"    })",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/invoices/?customer_id={{CUSTOMER_ID}}&payment_status=unpaid",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"invoices",
+								""
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}"
+								},
+								{
+									"key": "payment_status",
+									"value": "unpaid"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invoice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body contains correct items\", function(){",
+									"        pm.response.to.have.jsonBody(\"invoice_pdf\");",
+									"        pm.response.to.have.jsonBody(\"invoice_id\");",
+									"        pm.response.to.have.jsonBody(\"seller\");",
+									"        pm.response.to.have.jsonBody(\"end_date\");",
+									"        pm.response.to.have.jsonBody(\"start_date\");",
+									"        pm.response.to.have.jsonBody(\"due_date\");",
+									"        pm.response.to.have.jsonBody(\"customer\");",
+									"        pm.response.to.have.jsonBody(\"line_items\");",
+									"        pm.response.to.have.jsonBody(\"external_payment_obj_type\");",
+									"        pm.response.to.have.jsonBody(\"external_payment_obj_id\");",
+									"        pm.response.to.have.jsonBody(\"payment_status\");",
+									"        pm.response.to.have.jsonBody(\"issue_date\");",
+									"        pm.response.to.have.jsonBody(\"currency\");",
+									"        pm.response.to.have.jsonBody(\"cost_due\");",
+									"        pm.response.to.have.jsonBody(\"invoice_number\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/invoices/{{INVOICE_ID}}/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"invoices",
+								"{{INVOICE_ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Credits",
+			"item": [
+				{
+					"name": "Create Credit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Body contains correct items\", function(){",
+									"    pm.response.to.have.jsonBody(\"credit_id\");",
+									"    pm.response.to.have.jsonBody(\"amount\");",
+									"    pm.response.to.have.jsonBody(\"amount_remaining\");",
+									"    pm.response.to.have.jsonBody(\"currency\");",
+									"    pm.response.to.have.jsonBody(\"description\");",
+									"    pm.response.to.have.jsonBody(\"effective_at\");",
+									"    pm.response.to.have.jsonBody(\"expires_at\");",
+									"    pm.response.to.have.jsonBody(\"status\");",
+									"    pm.response.to.have.jsonBody(\"amount_paid\");",
+									"    pm.response.to.have.jsonBody(\"amount_paid_currency\");",
+									"    pm.response.to.have.jsonBody(\"drawdowns\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "currency_code",
+									"value": "USD",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/credits/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"credits",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Credits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful response\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('is an Array', () => pm.expect(pm.response.json()).to.be.an('array').but.not.an('object'))",
+									"var bodyJson = pm.response.json();",
+									"",
+									"pm.test(\"Body contains correct items\", function(){",
+									"    _.each(bodyJson.Fee, (item)=> {",
+									"        pm.response.to.have.item(\"credit_id\");",
+									"        pm.response.to.have.item(\"amount\");",
+									"        pm.response.to.have.item(\"amount_remaining\");",
+									"        pm.response.to.have.item(\"currency\");",
+									"        pm.response.to.have.item(\"description\");",
+									"        pm.response.to.have.item(\"effective_at\");",
+									"        pm.response.to.have.item(\"expires_at\");",
+									"        pm.response.to.have.item(\"status\");",
+									"        pm.response.to.have.item(\"amount_paid\");",
+									"        pm.response.to.have.item(\"amount_paid_currency\");",
+									"        pm.response.to.have.item(\"drawdowns\");",
+									"    })",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/credits/?customer_id={{CUSTOMER_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"credits",
+								""
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "{{CUSTOMER_ID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ping",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Check Status and Body', () => {",
+							"    if(pm.response.code === 200) {",
+							"        pm.response.to.have.jsonBody(\"organization_id\");",
+							"    }",
+							"    if (pm.response.code === 500){",
+							"        pm.expect.fail();",
+							"    }",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/ping/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"ping",
+						""
+					],
+					"query": [
+						{
+							"key": "customer_id",
+							"value": "{{CUSTOMER_ID}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
