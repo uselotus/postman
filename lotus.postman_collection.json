@@ -846,7 +846,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/api/customer_metric_access/?customer_id={{CUSTOMER_ID}}&event_name=api_post",
+							"raw": "{{URL}}/api/customer_metric_access/?customer_id={{CUSTOMER_ID}}&event_name={{EVENT_NAME}}",
 							"host": [
 								"{{URL}}"
 							],
@@ -863,7 +863,7 @@
 								},
 								{
 									"key": "event_name",
-									"value": "api_post",
+									"value": "{{EVENT_NAME}}",
 									"description": "required"
 								}
 							]
@@ -913,7 +913,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/api/metric_access/?customer_id={{CUSTOMER_ID}}&metric_id=metric_add0416f28ee4f749e85cf7b779f0716",
+							"raw": "{{URL}}/api/metric_access/?customer_id={{CUSTOMER_ID}}&metric_id={{METRIC_ID}}",
 							"host": [
 								"{{URL}}"
 							],
@@ -930,7 +930,7 @@
 								},
 								{
 									"key": "metric_id",
-									"value": "metric_add0416f28ee4f749e85cf7b779f0716"
+									"value": "{{METRIC_ID}}"
 								}
 							]
 						}
@@ -979,7 +979,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/api/feature_access/?customer_id={{CUSTOMER_ID}}&feature_id=feature_813a0eefdaef4861b20d88e795eaf2d2",
+							"raw": "{{URL}}/api/feature_access/?customer_id={{CUSTOMER_ID}}&feature_id={{FEATURE_ID}}",
 							"host": [
 								"{{URL}}"
 							],
@@ -996,7 +996,7 @@
 								},
 								{
 									"key": "feature_id",
-									"value": "feature_813a0eefdaef4861b20d88e795eaf2d2"
+									"value": "{{FEATURE_ID}}"
 								}
 							]
 						}
@@ -1508,6 +1508,310 @@
 								{
 									"key": "customer_id",
 									"value": "{{CUSTOMER_ID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addons",
+			"item": [
+				{
+					"name": "Attach Addon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Check Status and Body', () => {",
+									"    if(pm.response.code === 200) {",
+									"        pm.response.to.have.jsonBody(\"fully_billed\");",
+									"        pm.response.to.have.jsonBody(\"billing_plan\");",
+									"        pm.response.to.have.jsonBody(\"customer\");",
+									"        pm.response.to.have.jsonBody(\"subscription_filters\");",
+									"        pm.response.to.have.jsonBody(\"is_new\");",
+									"        pm.response.to.have.jsonBody(\"auto_renew\");",
+									"        pm.response.to.have.jsonBody(\"end_date\");",
+									"        pm.response.to.have.jsonBody(\"start_date\");",
+									"    }",
+									"    if (pm.response.code === 500){",
+									"        pm.expect.fail();",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attach_to_customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"type": "text"
+								},
+								{
+									"key": "attach_to_plan_id",
+									"value": "{{PLAN_ID}}",
+									"type": "text"
+								},
+								{
+									"key": "addon_id",
+									"value": "{{ADDON_ID}}",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/subscriptions/addons/add/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"addons",
+								"add",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Addon Subscription",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Check Status', () => {",
+									"    if(pm.response.code === 200) {",
+									"        pm.test('is an Array', () => pm.expect(pm.response.json()).to.be.an('array').but.not.an('object'))",
+									"",
+									"        var bodyJson = pm.response.json();",
+									"        _.each(bodyJson.Fee, (item)=> {",
+									"            pm.response.to.have.jsonBody(\"fully_billed\");",
+									"            pm.response.to.have.jsonBody(\"billing_plan\");",
+									"            pm.response.to.have.jsonBody(\"customer\");",
+									"            pm.response.to.have.jsonBody(\"subscription_filters\");",
+									"            pm.response.to.have.jsonBody(\"is_new\");",
+									"            pm.response.to.have.jsonBody(\"auto_renew\");",
+									"            pm.response.to.have.jsonBody(\"end_date\");",
+									"            pm.response.to.have.jsonBody(\"start_date\");",
+									"        })",
+									"    }",
+									"    if (pm.response.code === 500){",
+									"        pm.expect.fail();",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "turn_off_auto_renew",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "invoicing_behavior",
+									"value": "add_to_next_invoice",
+									"type": "text"
+								},
+								{
+									"key": "usage_behavior",
+									"value": "transfer_to_new_subscription",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/subscriptions/addons/update/?attached_customer_id={{CUSTOMER_ID}}&attached_plan_id={{PLAN_ID}}&addon_id={{ADDON_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"addons",
+								"update",
+								""
+							],
+							"query": [
+								{
+									"key": "attached_customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"description": "not required; if not specified, will perform cancellation for all customers, given other filters"
+								},
+								{
+									"key": "attached_plan_id",
+									"value": "{{PLAN_ID}}",
+									"description": "not required; if not specified, will perform cancellation across all plans, given other filters"
+								},
+								{
+									"key": "addon_id",
+									"value": "{{ADDON_ID}}",
+									"description": "must be a stringified json of a list of length 2 dictionaries with keys \"property_name\" and \"value\""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Addon Subscription",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Check Status and Body', () => {",
+									"    if(pm.response.code === 200) {",
+									"        pm.test('is an Array', () => pm.expect(pm.response.json()).to.be.an('array').but.not.an('object'))",
+									"",
+									"        var bodyJson = pm.response.json();",
+									"        _.each(bodyJson.Fee, (item)=> {",
+									"            pm.response.to.have.jsonBody(\"fully_billed\");",
+									"            pm.response.to.have.jsonBody(\"billing_plan\");",
+									"            pm.response.to.have.jsonBody(\"customer\");",
+									"            pm.response.to.have.jsonBody(\"subscription_filters\");",
+									"            pm.response.to.have.jsonBody(\"is_new\");",
+									"            pm.response.to.have.jsonBody(\"auto_renew\");",
+									"            pm.response.to.have.jsonBody(\"end_date\");",
+									"            pm.response.to.have.jsonBody(\"start_date\");",
+									"        })",
+									"    }",
+									"    if (pm.response.code === 500){",
+									"        pm.expect.fail();",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{KEY}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-KEY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "flat_fee_behavior",
+									"value": "charge_prorated",
+									"description": "must be prorate, refund, or charge_full",
+									"type": "text"
+								},
+								{
+									"key": "usage_behavior",
+									"value": "bill_full",
+									"description": "must be bill_full or bill_none",
+									"type": "text"
+								},
+								{
+									"key": "invoicing_behavior_on_cancel",
+									"value": "invoice_now",
+									"description": "must be invoice_now or add_to_next_invoice",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/subscriptions/addons/cancel/?attached_customer_id={{CUSTOMER_ID}}&attached_plan_id={{PLAN_ID}}&addon_id={{ADDON_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"addons",
+								"cancel",
+								""
+							],
+							"query": [
+								{
+									"key": "attached_customer_id",
+									"value": "{{CUSTOMER_ID}}",
+									"description": "not required; if not specified, will perform cancellation for all customers, given other filters"
+								},
+								{
+									"key": "attached_plan_id",
+									"value": "{{PLAN_ID}}",
+									"description": "not required; if not specified, will perform cancellation across all plans, given other filters"
+								},
+								{
+									"key": "addon_id",
+									"value": "{{ADDON_ID}}"
 								}
 							]
 						}
